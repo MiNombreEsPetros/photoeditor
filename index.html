@@ -1,0 +1,606 @@
+<!-- Created by Melih Melik Sonmez -->
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <!-- All credits goes to Emma 
+         It was a great and clean code so what I figure is lineWdith which was missing.
+         Also I added white color so you can use it as an eraser :D
+         Thanks for your nice coding Emma.
+         https://www.sololearn.com/Profile/1769383
+         -->
+      <style>/* Created by Melih Melik Sonmez */
+         #canvas
+         {
+         border: 1px solid black;
+         margin: 10px 0 10px 0;
+         cursor: crosshair;
+         }
+         #colors button
+         {
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+         margin-top: 0px;
+         }
+         #black 
+         {
+         background: black;
+         }
+         #pink 
+         {
+         background: pink;
+         }
+         #red
+         {
+         background: red;
+         }
+         #green 
+         { 
+         background: green;
+         }
+         #blue 
+         {
+         background: blue;
+         }
+         #orange 
+         {
+         background: orange;
+         }
+         #white 
+         {
+         background: white;
+         }
+         #purple 
+         {
+         background: purple;
+         }
+         #lime 
+         {
+         background: lime;
+         }
+         #yellowgreen
+         {
+         background: yellowgreen;
+         }
+         #azure 
+         { 
+         background: azure;
+         }
+         #silver 
+         {
+         background: silver;
+         }
+         #brown 
+         {
+         background: brown;
+         }
+         #darkcyan 
+         {
+         background: darkcyan;
+         }
+         #aqua 
+         {
+         background: aqua;
+         }
+         #yellow 
+         {
+         background: yellow;
+         }
+         #gray
+         {
+         background: gray;
+         }
+         #skyblue 
+         { 
+         background: skyblue;
+         }
+         #wheat
+         {
+         background: wheat;
+         }
+         #violet 
+         {
+         background: violet;
+         }
+         #navy 
+         {
+         background: navy;
+         }
+      </style>
+   </head>
+   <body>
+      <div id='colors'>
+         
+         <button id='red' onclick='changeColor("red")' ontouchstart='changeColor("red")'></button>
+         <button id='green' onclick='changeColor("green")' ontouchstart='changeColor("green")'></button>
+         <button id='blue' onclick='changeColor("blue")' ontouchstart='changeColor("blue")'></button>
+         <button id='orange' onclick='changeColor("orange")' ontouchstart='changeColor("orange")'></button>
+         <button id='pink' onclick='changeColor("pink")' ontouchstart='changeColor("pink")'></button>
+         <button id='black' onclick='changeColor("black")' ontouchstart='changeColor("black")'></button>
+         <button id='white' onclick='changeColor("white")' ontouchstart='changeColor("white")'></button>
+         <br>
+                  <button id='purple' onclick='changeColor("purple")' ontouchstart='changeColor("purple")'></button>
+         <button id='brown' onclick='changeColor("brown")' ontouchstart='changeColor("brown")'></button>
+         <button id='lime' onclick='changeColor("lime")' ontouchstart='changeColor("lime")'></button>
+         <button id='yellow' onclick='changeColor("yellow")' ontouchstart='changeColor("yellow")'></button>
+         <button id='aqua' onclick='changeColor("aqua")' ontouchstart='changeColor("aqua")'></button>
+         <button id='violet' onclick='changeColor("violet")' ontouchstart='changeColor("violet")'></button>
+         <button id='skyblue' onclick='changeColor("skyblue")' ontouchstart='changeColor("skyblue")'></button>
+         <br>
+                  <button id='azure' onclick='changeColor("azure")' ontouchstart='changeColor("azure")'></button>
+                  
+         <button id='yellowgreen' onclick='changeColor("yellowgreen")' ontouchstart='changeColor("yellowgreen")'></button>
+         <button id='silver' onclick='changeColor("silver")' ontouchstart='changeColor("silver")'></button>
+         <button id='wheat' onclick='changeColor("wheat")' ontouchstart='changeColor("wheat")'></button>
+         <button id='darkcyan' onclick='changeColor("darkcyan")' ontouchstart='changeColor("darkcyan")'></button>
+         <button id='gray' onclick='changeColor("gray")' ontouchstart='changeColor("gray")'></button>
+         <button id='navy' onclick='changeColor("navy")' ontouchstart='changeColor("navy")'></button>
+         <form>
+            Line width :
+            <input type="radio" name="painterWidth" onclick='changeWidth(1)' ontouchstart='changeWidth(1)'>1
+            <input type="radio" name="painterWidth" onclick='changeWidth(3)' ontouchstart='changeWidth(3)'>3
+            <input type="radio" name="painterWidth" onclick='changeWidth(5)' ontouchstart='changeWidth(5)' checked>5
+            <input type="radio" name="painterWidth" onclick='changeWidth(7)' ontouchstart='changeWidth(7)'>7
+            <input type="radio" name="painterWidth" onclick='changeWidth(10)' ontouchstart='changeWidth(10)'>10
+            <input type="radio" name="painterWidth" onclick='changeWidth(15)' ontouchstart='changeWidth(15)'>15
+            <input type="radio" name="painterWidth" onclick='changeWidth(17)' ontouchstart='changeWidth(17)'>17
+            <input type="radio" name="painterWidth" onclick='changeWidth(20)' ontouchstart='changeWidth(20)'>20
+            <input type="radio" name="painterWidth" onclick='changeWidth(25)' ontouchstart='changeWidth(25)'>25
+            <input type="radio" name="painterWidth" onclick='changeWidth(50)' ontouchstart='changeWidth(50)'>50
+            <input type="radio" name="painterWidth" onclick='changeWidth(100)' ontouchstart='changeWidth(100)'>100
+         </form>
+      </div>
+
+      <canvas id='canvas' width='700' height='700'></canvas>
+     <div> 
+         <button onclick='clearCanvas()'>Clear</button>
+         <button onclick='downloadCanvas()' id='Download'>Download</button>
+
+         
+         
+         <input type="file" id="imageLoader" name="imageLoader"/>
+            <input type="number" id="size" class="form-control" placeholder="size" value="" class="size">
+            <input type="button" class="updateSize btn btn-success" value="Update1" id="Update">
+         </div>
+         
+      </div>
+      <div class="canvasSize">
+         <h3>Canvas</h3>
+         <div class="input-group">
+            <span class="input-group-addon">X</span>
+            <input type="number" id="sizeX" class="form-control" placeholder="sizeX" value="800" class="size">
+         </div>
+         <div class="input-group">
+            <span class="input-group-addon">Y</span>
+            <input type="number" id="sizeY" class="form-control" placeholder="sizeY" value="800" class="size">
+         </div>
+         <input type="button" class="updateSize btn btn-success" value="Update" id="canvasUpdate">
+      </div>
+      <script>// Created by Melih Melik Sonmez
+         var arr_touches = [];
+         var canvas;
+         var ctx;
+         var down = false; //mouse is pressed
+         var color = color; //default drawing color
+         var width = 5; // drawing width
+         
+         
+         //calling window.onload to make sure the HTML is loaded
+         window.onload = function() {
+             canvas = document.getElementById('canvas');
+             ctx = canvas.getContext('2d'); 
+             ctx.lineWidth = width;
+             
+             //handling mouse click and move events
+             canvas.addEventListener('mousemove', handleMove); 
+             canvas.addEventListener('mousedown', handleDown);
+             canvas.addEventListener('mouseup', handleUp);
+             
+             //handling mobile touch events
+             canvas.addEventListener("touchstart", handleStart, false);
+             canvas.addEventListener("touchend", handleEnd, false);
+             canvas.addEventListener("touchcancel", handleCancel, false);
+             canvas.addEventListener("touchleave", handleEnd, false);
+             canvas.addEventListener("touchmove", handleTouchMove, false);
+             
+             // Added to change lineWidth
+              canvas.addEventListener("painterWidth", changeWidth, false);
+         };
+         function handleMove(e)
+         {
+             xPos = e.clientX-canvas.offsetLeft;
+             yPos = e.clientY-canvas.offsetTop;
+             
+             if(down == true)
+             {
+                 ctx.lineTo(xPos,yPos); //create a line from old point to new one
+                 ctx.strokeStyle = color;
+                 ctx.lineWidth = width;// Added to change lineWidth
+                 ctx.stroke();
+             }
+         }
+         function handleDown() 
+         {
+             down = true;
+             ctx.beginPath();
+             ctx.moveTo(xPos, yPos);
+         }
+         function handleUp() 
+         {
+             down = false;
+         }
+         function handleStart(evt) 
+         {
+             var touches = evt.changedTouches;
+             for(var i = 0; i < touches.length; i++) 
+             {
+                 if(isValidTouch(touches[i])) 
+                 {
+                     evt.preventDefault();
+                     arr_touches.push(copyTouch(touches[i]));
+                     ctx.beginPath();
+                     ctx.fillStyle = "white";
+                     ctx.fill();
+                     
+                 }
+             }
+         }
+         function handleTouchMove(evt) 
+         {
+             var touches = evt.changedTouches;
+             var offset = findPos(canvas);
+             for (var i = 0; i < touches.length; i++) 
+             {
+                 if(isValidTouch(touches[i])) 
+                 {
+                     evt.preventDefault();
+                     var idx = ongoingTouchIndexById(touches[i].identifier);
+                     if (idx >= 0) 
+                     {
+                         ctx.beginPath();
+                         ctx.moveTo(arr_touches[idx].clientX-offset.x, arr_touches[idx].clientY-offset.y);
+                         ctx.lineTo(touches[i].clientX-offset.x, touches[i].clientY-offset.y);
+                         ctx.strokeStyle = color;
+                         ctx.lineWidth = width;// Added to change lineWidth
+                         ctx.stroke();
+                         
+                         arr_touches.splice(idx, 1, copyTouch(touches[i]));
+                     }   
+                 }
+             }
+         }
+         function handleEnd(evt) 
+         {
+             var touches = evt.changedTouches;
+             var offset = findPos(canvas);
+             for (var i = 0; i < touches.length; i++) 
+             {
+                 if(isValidTouch(touches[i])) 
+                 {
+                     evt.preventDefault();
+                     var idx = ongoingTouchIndexById(touches[i].identifier);
+                     if (idx >= 0) 
+                     {
+                         ctx.lineWidth = 4;
+                         ctx.fillStyle = color;
+                         ctx.beginPath();
+                         ctx.moveTo(arr_touches[idx].clientX-offset.x, arr_touches[idx].clientY-offset.y);
+                         ctx.lineTo(touches[i].clientX-offset.x, touches[i].clientY-offset.y);
+                        arr_touches.splice(i, 1);
+                     } 
+                 }
+             }
+         }
+         function handleCancel(evt) 
+         {
+             evt.preventDefault();
+             var touches = evt.changedTouches;
+           
+             for (var i = 0; i < touches.length; i++) {
+                 arr_touches.splice(i, 1);
+             }
+         }
+         function copyTouch(touch) 
+         {
+             return {identifier: touch.identifier,clientX: touch.clientX,clientY: touch.clientY};
+         }
+         function ongoingTouchIndexById(idToFind) 
+         {
+             for (var i = 0; i < arr_touches.length; i++) {
+                 var id = arr_touches[i].identifier;
+                 if (id == idToFind) {
+                     return i;
+                 }
+             }
+             return -1;
+         }
+         function changeColor(new_color) 
+         {
+             color = new_color;
+         }
+         
+         // Added to change lineWidth
+         function changeWidth(painterWidth)
+         {
+             width = painterWidth;
+             document.getElementById("showWidth").innerHTML = width; //To show painter width under canvas
+             
+         }
+         function clearCanvas() 
+         {
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+         }
+         function isValidTouch(touch) 
+         {
+             var curleft = 0, curtop = 0;
+             var offset = 0;
+             
+             if (canvas.offsetParent) {
+                 do {
+                     curleft += canvas.offsetLeft;
+                     curtop += canvas.offsetTop;
+                 } while (touch == canvas.offsetParent);
+                 
+                 offset = { x: curleft-document.body.scrollLeft, y: curtop-document.body.scrollTop };
+             }
+             
+             if(touch.clientX-offset.x > 0 &&
+                     touch.clientX-offset.x < parseFloat(canvas.width) &&
+                         touch.clientY-offset.y >0 &&
+                             touch.clientY-offset.y < parseFloat(canvas.height)) {
+                 return true;
+             }
+             else 
+             {
+                 return false;
+             }
+         }
+         
+         function findPos(obj) 
+         {
+             var curleft = 0, curtop = 0;
+             if (obj.offsetParent) 
+             {
+                 do {
+                     curleft += obj.offsetLeft;
+                     curtop += obj.offsetTop;
+                 } while (obj == obj.offsetParent);
+         
+                 return { x: curleft-document.body.scrollLeft, y: curtop-document.body.scrollTop };
+             }
+         }
+         function downloadCanvas (){
+         
+         
+           var canvas = document.getElementById("canvas");
+           image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+           var link = document.createElement('a');
+           link.download = "my-image.png";
+           link.href = image;
+           link.click();
+         }
+         var imageLoader = document.getElementById('imageLoader');
+             imageLoader.addEventListener('change', handleImage, false);
+         var canvas = document.getElementById('canvas');
+         var ctx = canvas.getContext('2d');
+         
+         
+         function handleImage(e){
+             var reader = new FileReader();
+             reader.onload = function(event){
+                 var img = new Image();
+                 img.onload = function(){
+                     canvas.width = img.width;
+                     canvas.height = img.height;
+                     ctx.drawImage(img,0,0);
+                 }
+                 img.src = event.target.result;
+             }
+             reader.readAsDataURL(e.target.files[0]);     
+         }
+         function createCanvas() {
+               canvas.id = "canvas";
+               canvas.width = parseInt(document.getElementById("sizeX").value);
+               canvas.height = parseInt(document.getElementById("sizeY").value);
+
+             }
+var j;
+function create() {
+    j = parseInt(document.getElementById("size").value);}
+		function redraw() {
+				for (var i = 1; i < arr_touches.length; i++) {
+					ctx.beginPath();
+					ctx.moveTo(arr_touches[i-1].x, arr_touches[i-1].y);
+					ctx.lineWidth  = arr_touches[i].size;
+					ctx.lineCap = "round";
+					ctx.strokeStyle = arr_touches[i].color;
+					ctx.lineTo(linesArray[i].x, arr_touches[i].y);
+					ctx.stroke();
+				}
+		}
+		document.getElementById('canvasUpdate').addEventListener('click', function() {
+			createCanvas();
+			redraw();
+		});
+		
+		document.getElementById('Update').addEventListener('click', function() {
+			create();
+			
+		});
+		if (j==1 ){
+		    myFunction();}
+function myFunction(){
+
+		    
+		
+		
+      
+        
+    
+polyFillPerfNow();
+
+// Canvas setup
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var canvasWidth = canvas.width,
+  canvasHeight = canvas.height;
+
+drawSomething();
+
+var reverseUint32 = function() {
+  var s32 = new Uint32Array(4);
+  var s8 = new Uint8Array(s32.buffer);
+  var t32 = new Uint32Array(4);
+  var t8 = new Uint8Array(t32.buffer);
+  return function(x) {
+    s32[0] = x;
+    t8[0] = s8[3];
+    t8[1] = s8[2];
+    t8[2] = s8[1];
+    t8[3] = s8[0];
+    return t32[0];
+  }
+}();
+
+var once = true;
+
+function floodFill(context, x, y, color) {
+  x = 0 | x;
+  y = 0 | y;
+  var w = context.canvas.width,
+    h = context.canvas.height;
+  var wm1 = w - 1;
+  if (x < 0 || x >= w || y < 0 || y >= h) return;
+  var imgData = context.getImageData(0, 0, w, h);
+  var buffer32 = new Uint32Array(imgData.data.buffer);
+  var pointStack = floodFill.pointStack;
+  var stackLength = 0;
+  var lx = x,
+    li = (y * w + x);
+  var rx = lx,
+    ri = li;
+  var sx = 0,
+    si = 0;
+  var floodPushed = false;
+  var sign = 0;
+  // get start color
+  var startColor = buffer32[li];
+  // get fill color as 32 bit rgba value
+  context.fillStyle = color;
+  color = context.fillStyle;
+  color = parseInt(color.substring(1), 16);
+  color = color << 8 | 0xFF;
+  color = reverseUint32(color);
+  //
+
+  if (buffer32[li] == color) return;
+  var guard = w * h;
+  do {
+    // seek left limit
+    while (lx - 1 >= 0 && buffer32[li - 1] == startColor) {
+      lx--;
+      li--;
+    };
+    // seek right limit
+    while ((rx + 1 != wm1) && buffer32[ri + 1] == startColor) {
+      rx++;
+      ri++;
+    };
+    // draw current h-line
+    //    if (buffer32[li] == color) {
+    //      console.log('??', li % w, 0 | (li / w));
+    //    }
+
+    if (buffer32[li] != color) {
+      // fill current line.
+      for (si = li; si <= ri; si++) {
+        buffer32[si] = color;
+      }
+
+      // scan above then below to test if flood required, from lx to rx
+      for (sign = -1; sign <= 1; sign += 2) {
+        if ((sign < 0 && y == 0) || (sign > 0 && y == h - 1)) continue;
+        si = li + sign * w;
+        floodPushed = false;
+        // iterate left to right
+        for (sx = lx; sx <= rx; sx++, si++) {
+          if (buffer32[si] == color) continue;
+
+          if (!floodPushed) {
+            if (buffer32[si] == startColor) {
+              // start of a new flood line
+              // --> push start of the line
+              pointStack[stackLength++] = sx;
+              floodPushed = true;
+            }
+          } else if (buffer32[si] != startColor) {
+            // end of current flood line
+            // --> push end of the line and y
+            pointStack[stackLength++] = sx - 1;
+            pointStack[stackLength++] = y + sign;
+            floodPushed = false;
+          }
+        }
+        if (floodPushed) {
+          pointStack[stackLength++] = rx;
+          pointStack[stackLength++] = y + sign;
+        }
+      }
+    }
+
+
+    if (stackLength) {
+      y = pointStack[--stackLength];
+      rx = pointStack[--stackLength];
+      lx = pointStack[--stackLength];
+      ri = y * w + rx;
+      li = y * w + lx;
+    } else break;
+    // if (guard-- < 0) break; // to prevent infinite loop when debuging
+
+  } while (true);
+  context.putImageData(imgData, 0, 0);
+}
+floodFill.pointStack = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+
+
+
+function drawSomething() {
+  
+  
+
+
+  //context.arc(120, 60, 40, 0, 6.24);
+  
+}
+
+
+
+function polyFillPerfNow() {
+  window.performance = window.performance ? window.performance : {};
+  window.performance.now = window.performance.now || window.performance.webkitNow || window.performance.msNow || window.performance.mozNow || Date.now;
+};
+
+
+
+canvas.addEventListener('mousedown', handleClick);
+
+function handleClick(e) {
+   
+  color = color;
+  var br = this.getBoundingClientRect();
+  var x = e.clientX - br.left;
+  var y = e.clientY - br.top;
+  st = performance.now();
+  //WilliamMaloneFill(x, y);
+  floodFill(context, x, y, color);
+  ed = performance.now();
+  
+}
+
+
+}
+      </script>
+   </body>
+</html>
